@@ -35,16 +35,16 @@
     };
 
  /* Correct i2c@40004000 node */
-    &i2c1: i2c@40004000 {
+    i2c1: i2c@40004000 {
         compatible = "nordic,nrf-twi";
         reg = <0x40004000 0x1000>;
         status = "okay";
         clock-frequency = <I2C_BITRATE_STANDARD>;
-
+/*
         adxl345: adxl345@53 {
             compatible = "adi,adxl345";
             reg = <0x53>;  /* Device address on I2C bus */
             label = "ADXL345";
-        };
+        };*/
     };
 };
