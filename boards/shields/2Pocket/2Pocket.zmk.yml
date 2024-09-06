@@ -6,3 +6,6 @@ requires: [seeed_xiao]
 features:
   - keys
   - accelerometer
+siblings:
+  - 2Pocket_left
+  - 2Pocket_right

@@ -1,2 +1,4 @@
-config SHIELD_MY_BOARD
-    def_bool $(shields_list_contains,2Pocket)
+config SHIELD_2POCKET_LEFT
+    def_bool $(shields_list_contains,2Pocket_left)
+config SHIELD_2POCKET_RIGHT
+    def_bool $(shields_list_contains,2Pocket_right)
