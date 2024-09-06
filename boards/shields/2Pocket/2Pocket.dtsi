@@ -36,7 +36,7 @@
 };
 
 &i2c1 {
-    pinctrl-0 = <&i2c1_default>;
+    pinctrl-0 = <&i2c1_scl &i2c1_sda>;
     compatible = "nordic,nrf-twi";
     reg = <0x40004000 0x1000>;
     status = "okay";
@@ -47,11 +47,6 @@
         reg = <0x53>;  /* Device address on I2C bus */
         label = "ADXL345";
     };
-};
-
-i2c1_default: i2c1_default {
-    compatible = "nordic,nrf-pinctrl";
-    pinctrl-0 = <&i2c1_scl &i2c1_sda>;
 };
 
 i2c1_scl: pinctrl@0 {
