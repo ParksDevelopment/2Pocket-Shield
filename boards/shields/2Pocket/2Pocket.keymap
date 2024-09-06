@@ -3,34 +3,7 @@
 #include <dt-bindings/zmk/bt.h>
 
 
-/ {
-
-    macros {
-        cum: cum {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&macro_press &kp LSHFT>
-                , <&macro_tap &kp C &kp U &kp M>
-                , <&macro_release &kp LSHFT>
-                ;
-        };
-    };
-
-    combos {
-        compatible = "zmk,combos";
-        combo_clr {
-            timeout-ms = <50>;
-            key-positions = <0 3>;
-            bindings = <&bt BT_CLR_ALL>;
-        };
-        combo_cum {
-            timeout-ms = <50>;
-            key-positions = <9 13>;
-            bindings = <&cum>;
-        };
-    };
-    
+/ {    
     keymap {
         compatible = "zmk,keymap";
 
@@ -41,14 +14,11 @@
 // |  SHIFT  |    Z    |    X    |    C    |    V    |    B    | CTRL+A  | CTRL+C  |  |  CTRL+V |  CTRL+X |    N    |    M    |    ,    |    .    |    /    |  R CTRL |
 //                               |   GUI   |   DEL   | RETURN  |  SPACE  | ESCAPE  |  |  RETURN |  SPACE  |   TAB   |   BSPC  |  R ALT  |
             bindings = <
-    &kp LSHIFT    &kp LCTRL    &kp TAB    &kp KP_NUMLOCK
-    &kp KP_MINUS    &kp KP_MULTIPLY    &kp KP_DIVIDE    &kp KP_N7
-    &kp KP_PLUS    &kp KP_N9    &kp KP_N8    &kp KP_N4
-    &kp KP_ENTER    &kp KP_N6    &kp KP_N5    &kp KP_N1
-    &kp KP_DOT    &kp KP_N3    &kp KP_N2    &kp KP_N0
+    &kp KP_Q    &kp KP_W    &kp KP_F        &kp KP_P        &kp KP_B      &kp KP_J         &kp KP_L            &kp KP_U             &kp KP_Y        &kp KP_SINGLE_QUOTE
+    &kp KP_A    &kp KP_R    &kp KP_S        &kp KP_T        &kp KP_G      &kp KP_M         &kp KP_N            &kp KP_E             &kp KP_I        &kp KP_O
+    &kp KP_Z    &kp KP_X    &kp KP_C        &kp KP_D        &kp KP_V      &kp KP_K         &kp KP_H            &kp KP_COMMA         &kp KP_PERIOD   &kp KP_SLASH
+                &kp KP_A    &kp KP_ESCAPE   &kp KP_SPACE    &kp KP_TAB    &kp KP_RETURN    &kp KP_BACKSPACE    &kp KP_DELETE        &kp KP_A
             >;
-
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };
