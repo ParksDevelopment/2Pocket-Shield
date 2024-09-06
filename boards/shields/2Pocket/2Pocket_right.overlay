@@ -1,4 +1,4 @@
-#include "iris.dtsi"
+#include "2Pocket.dtsi"
 
 &kscan0 {
         col-gpios
