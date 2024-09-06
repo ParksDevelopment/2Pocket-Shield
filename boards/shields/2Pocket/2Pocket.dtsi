@@ -35,7 +35,7 @@
     };
 
  /* Correct i2c@40004000 node */
-    i2c2: i2c@40004000 {
+    i2c1: i2c@40004000 {
         compatible = "nordic,nrf-twi";
         reg = <0x40004000 0x1000>;
         status = "okay";
