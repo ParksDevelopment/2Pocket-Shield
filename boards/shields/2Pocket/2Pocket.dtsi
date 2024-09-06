@@ -48,3 +48,18 @@
         label = "ADXL345";
     };
 };
+
+i2c1_default: i2c1_default {
+    compatible = "nordic,nrf-pinctrl";
+    pinctrl-0 = <&i2c1_scl &i2c1_sda>;
+};
+
+i2c1_scl: pinctrl@0 {
+    pins = "SCL";
+    function = "i2c";
+};
+
+i2c1_sda: pinctrl@1 {
+    pins = "SDA";
+    function = "i2c";
+};
