@@ -1,0 +1,8 @@
+file_format: "1"
+id: 2Pocket
+name: 2Pocket
+type: shield
+requires: [seeed_xiao]
+features:
+  - keys
+  - accelerometer
