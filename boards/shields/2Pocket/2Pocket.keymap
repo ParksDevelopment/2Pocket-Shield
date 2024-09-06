@@ -14,10 +14,10 @@
 // |  SHIFT  |    Z    |    X    |    C    |    V    |    B    | CTRL+A  | CTRL+C  |  |  CTRL+V |  CTRL+X |    N    |    M    |    ,    |    .    |    /    |  R CTRL |
 //                               |   GUI   |   DEL   | RETURN  |  SPACE  | ESCAPE  |  |  RETURN |  SPACE  |   TAB   |   BSPC  |  R ALT  |
             bindings = <
-    &kp KP_Q    &kp KP_W    &kp KP_F        &kp KP_P        &kp KP_B      &kp KP_J         &kp KP_L            &kp KP_U             &kp KP_Y        &kp KP_SINGLE_QUOTE
-    &kp KP_A    &kp KP_R    &kp KP_S        &kp KP_T        &kp KP_G      &kp KP_M         &kp KP_N            &kp KP_E             &kp KP_I        &kp KP_O
-    &kp KP_Z    &kp KP_X    &kp KP_C        &kp KP_D        &kp KP_V      &kp KP_K         &kp KP_H            &kp KP_COMMA         &kp KP_PERIOD   &kp KP_SLASH
-                &kp KP_A    &kp KP_ESCAPE   &kp KP_SPACE    &kp KP_TAB    &kp KP_RETURN    &kp KP_BACKSPACE    &kp KP_DELETE        &kp KP_A
+    &kp Q    &kp W    &kp F        &kp P        &kp B      &kp J         &kp L            &kp U             &kp Y        &kp SINGLE_QUOTE
+    &kp A    &kp R    &kp S        &kp T        &kp G      &kp M         &kp N            &kp E             &kp I        &kp O
+    &kp Z    &kp X    &kp C        &kp D        &kp V      &kp K         &kp H            &kp COMMA         &kp PERIOD   &kp SLASH
+                &kp A    &kp ESCAPE   &kp SPACE    &kp TAB    &kp RETURN    &kp BACKSPACE    &kp DELETE        &kp A
             >;
         };
     };
