@@ -35,9 +35,8 @@
     };
 
  /* Correct i2c@40004000 node */
-    i2c1: i2c@40004000 {
+    i2c1 {
         compatible = "nordic,nrf-twi";
-        reg = <0x40004000 0x1000>;
         status = "okay";
         clock-frequency = <I2C_BITRATE_STANDARD>;
         adxl345: adxl345@53 {
