@@ -1,4 +1,4 @@
-#include <zephyr.h>
+#include <zephyr/kernel.h>
 #include <device.h>
 #include <drivers/sensor.h>
 #include <logging/log.h>
