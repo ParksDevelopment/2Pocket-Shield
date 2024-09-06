@@ -1,5 +1,3 @@
-endif
-
 if SHIELD_2POCKET_LEFT
 
 config ZMK_KEYBOARD_NAME
