@@ -34,12 +34,20 @@
             ;
     };
 
-    adxl345: adxl345@53 {
-            status = "okay"; 
+    /* Add I2C bus and ADXL345 here */
+    i2c1: i2c@40003000 {  /* This address is for I2C1 on nRF52840 */
+        compatible = "nordic,nrf-twi";
+        reg = <0x40003000 0x1000>;
+        status = "okay";
+        clock-frequency = <I2C_BITRATE_STANDARD>;  /* Use the standard I2C frequency */
+
+        adxl345: adxl345@53 {
             compatible = "adi,adxl345";
-            reg = <0x53>;  // I2C address of ADXL345, adjust if necessary
+            reg = <0x53>;  /* I2C address of the ADXL345 */
             label = "ADXL345";
-            spi-max-frequency = <1000000>;
+            spi-max-frequency = <1000000>;  /* Only needed if SPI is used, can remove if I2C */
+            // Interrupts can be added here if you are using them:
+            // int1-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;
         };
     };
 };
