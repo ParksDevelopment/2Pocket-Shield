@@ -38,8 +38,8 @@
 &pinctrl {
 	i2c0_default_alt: i2c0_default_alt {
 		group1 {
-			psels = <&xiao_d 4>,
-				<&xiao_d 5>;
+			psels = <0x4>,
+				<0x5>;
 			bias-pull-up;
 		};
 	};
