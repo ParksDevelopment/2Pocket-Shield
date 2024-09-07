@@ -6,8 +6,8 @@
 
 LOG_MODULE_REGISTER(adxl345);
 
-static int adxl345_init(const struct device *dev) {
-    const struct device *sensor = device_get("ADXL345");
+static int adxl345_init() {
+    const struct device *sensor = device_get_binding("ADXL345");
 
     if (!sensor) {
         LOG_ERR("No device found for ADXL345");
