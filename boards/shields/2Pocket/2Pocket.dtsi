@@ -36,7 +36,7 @@
 };
 
 &xiao_i2c {
-    pinctrl-0 = <0x03 0x04>;
+    pinctrl-0 = <&i2c0_default>;
     compatible = "nordic,nrf-twi";
     reg = <0x40003000 0x1000>;
     status = "okay";
@@ -47,3 +47,4 @@
         reg = <0x53>;  /* Device address on I2C bus */
     };
 };
+

@@ -4,6 +4,7 @@
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/init.h>
+#include <zephyr/sys/printk.h>
 
 #define MY_SERIAL DT_NODELABEL(adxl345)
 
@@ -43,6 +44,22 @@ static void adxl345_read_data(const struct device *sensor) {
             accel_z.val1, accel_z.val2);
 }
 
+static void list_i2c_devices(void) {
+    const struct device *i2c_dev;
+    struct device *dev;
+    int i2c_count = 0;
+
+    // Iterate over all devices
+    for (i2c_count = 0; i2c_count < DEVICE_MAX; i2c_count++) {
+        dev = device_get_binding(i2c_count);
+        if (dev) {
+            if (device_is_ready(dev) && device_is_powered(dev) && device_is_enabled(dev)) {
+                LOG_INF("I2C Device found: %s", log_strdup(device_get_name(dev)));
+            }
+        }
+    }
+}
+
 static int adxl345_init(const struct device *dev) {
     const struct device *sensor = DEVICE_DT_GET(MY_SERIAL);
 
@@ -60,6 +77,9 @@ static int adxl345_init(const struct device *dev) {
 
     // Call the read function right after initialization to get a single reading
     adxl345_read_data(sensor);
+
+    // List all I2C devices
+    list_i2c_devices();
 
     return 0;
 }
