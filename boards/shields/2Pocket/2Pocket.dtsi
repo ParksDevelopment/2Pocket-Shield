@@ -35,8 +35,18 @@
     };
 };
 
+&pinctrl {
+	i2c0_default_alt: i2c0_default_alt {
+		group1 {
+			psels = <&xiao_d 4>,
+				<&xiao_d 5>;
+			bias-pull-up;
+		};
+	};
+};
+
 &i2c0 {
-    pinctrl-0 = <&i2c0_default>;
+    pinctrl-0 = <&i2c0_default_alt>;
     compatible = "nordic,nrf-twi";
     reg = <0x40003000 0x1000>;
     status = "okay";
@@ -47,4 +57,3 @@
         reg = <0x53>;  /* Device address on I2C bus */
     };
 };
-
