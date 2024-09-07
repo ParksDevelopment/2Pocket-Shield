@@ -50,7 +50,7 @@ static void list_i2c_devices(void) {
     int i2c_count = 0;
 
     // Iterate over all devices
-    for (i2c_count = 0; i2c_count < DEVICE_MAX; i2c_count++) {
+    for (i2c_count = 0; i2c_count < 127; i2c_count++) {
         dev = device_get_binding(i2c_count);
         if (dev) {
             if (device_is_ready(dev) && device_is_powered(dev) && device_is_enabled(dev)) {
