@@ -53,10 +53,11 @@
 
 &i2c0 {
     pinctrl-0 = <&i2c0_default>;
+    pinctrl-1 = <&i2c0_sleep>;
+    pinctrl-names = "default", "sleep";
     compatible = "nordic,nrf-twi";
-    reg = <0x40003000 0x1000>;
     status = "okay";
-    clock-frequency = <I2C_BITRATE_FAST>;
+    clock-frequency = <I2C_BITRATE_STANDARD>;
 
     adxl345: adxl345@53 {
         compatible = "adi,adxl345";
