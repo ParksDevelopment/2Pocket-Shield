@@ -7,14 +7,14 @@
 
 #define MY_SERIAL DT_NODELABEL(adxl345)
 #define STACK_SIZE 1024
-#define PRIORITY 5
-#define DELAY_MS 1000  // Delay time in milliseconds
+#define THREAD_PRIORITY 5
+#define READ_INTERVAL K_SECONDS(1)  // Adjust the interval as needed
 
 LOG_MODULE_REGISTER(adxl345);
 
 static const struct device *sensor;
 
-static void adxl345_read_data(void) {
+static void adxl345_read_data(const struct device *sensor) {
     struct sensor_value accel_x, accel_y, accel_z;
     int ret;
 
@@ -48,10 +48,10 @@ static void adxl345_read_data(void) {
             accel_z.val1, accel_z.val2);
 }
 
-void adxl345_thread(void) {
+static void adxl345_thread(void) {
     while (1) {
-        adxl345_read_data();
-        k_sleep(K_MSEC(DELAY_MS));  // Sleep for the specified delay
+        adxl345_read_data(sensor);
+        k_sleep(READ_INTERVAL);
     }
 }
 
@@ -71,17 +71,16 @@ static int adxl345_init(const struct device *dev) {
     LOG_INF("ADXL345 initialized");
 
     // Create a thread that will periodically call the read function
+    static struct k_thread adxl345_thread_data;
+    static K_THREAD_STACK_DEFINE(adxl345_thread_stack, STACK_SIZE);
+
     k_thread_create(&adxl345_thread_data, adxl345_thread_stack,
                     K_THREAD_STACK_SIZEOF(adxl345_thread_stack),
                     (k_thread_entry_t) adxl345_thread,
                     NULL, NULL, NULL,
-                    PRIORITY, 0, K_NO_WAIT);
+                    THREAD_PRIORITY, 0, K_NO_WAIT);
 
     return 0;
 }
-
-#define STACK_SIZE 1024
-static K_THREAD_STACK_DEFINE(adxl345_thread_stack, STACK_SIZE);
-static struct k_thread adxl345_thread_data;
 
 SYS_INIT(adxl345_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
