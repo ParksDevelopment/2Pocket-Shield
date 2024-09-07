@@ -36,7 +36,7 @@
 };
 
 &xiao_i2c {
-    pinctrl-0 = <&i2c0_default>;
+    pinctrl-0 = <&i2c1_pins>;
     compatible = "nordic,nrf-twi";
     reg = <0x40003000 0x1000>;
     status = "okay";
@@ -46,4 +46,9 @@
         compatible = "adi,adxl345";
         reg = <0x53>;  /* Device address on I2C bus */
     };
+};
+
+i2c1_pins: pinctrl {
+    pinmux = <0x04 0x05>;  // Replace with actual pinmux values for SDA and SCL
+    bias-pull-up;
 };
