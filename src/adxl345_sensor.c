@@ -6,7 +6,7 @@
 
 LOG_MODULE_REGISTER(adxl345);
 
-static int adxl345_init() {
+static int adxl345_init(const struct device *dev) {
     const struct device *sensor = device_get_binding("ADXL345");
 
     if (!sensor) {
