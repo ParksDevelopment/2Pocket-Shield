@@ -6,30 +6,15 @@
 #include <zephyr/init.h>
 
 #define MY_SERIAL DT_NODELABEL(adxl345)
+#define STACK_SIZE 1024
+#define PRIORITY 5
+#define DELAY_MS 1000  // Delay time in milliseconds
 
 LOG_MODULE_REGISTER(adxl345);
 
-// Timer callback function
-void adxl345_timer_handler(struct k_timer *timer_id) {
-    const struct device *sensor = DEVICE_DT_GET(MY_SERIAL);
+static const struct device *sensor;
 
-    if (!sensor) {
-        LOG_ERR("No device found for ADXL345");
-        return;
-    }
-
-    if (!device_is_ready(sensor)) {
-        LOG_ERR("ADXL345 is not ready");
-        return;
-    }
-
-    adxl345_read_data(sensor);
-}
-
-// Timer definition
-K_TIMER_DEFINE(adxl345_timer, adxl345_timer_handler, NULL);
-
-static void adxl345_read_data(const struct device *sensor) {
+static void adxl345_read_data(void) {
     struct sensor_value accel_x, accel_y, accel_z;
     int ret;
 
@@ -63,8 +48,15 @@ static void adxl345_read_data(const struct device *sensor) {
             accel_z.val1, accel_z.val2);
 }
 
+void adxl345_thread(void) {
+    while (1) {
+        adxl345_read_data();
+        k_sleep(K_MSEC(DELAY_MS));  // Sleep for the specified delay
+    }
+}
+
 static int adxl345_init(const struct device *dev) {
-    const struct device *sensor = DEVICE_DT_GET(MY_SERIAL);
+    sensor = DEVICE_DT_GET(MY_SERIAL);
 
     if (!sensor) {
         LOG_ERR("No device found for ADXL345");
@@ -78,10 +70,18 @@ static int adxl345_init(const struct device *dev) {
 
     LOG_INF("ADXL345 initialized");
 
-    // Start the timer to call adxl345_read_data() every second
-    k_timer_start(&adxl345_timer, K_SECONDS(1), K_SECONDS(1));
+    // Create a thread that will periodically call the read function
+    k_thread_create(&adxl345_thread_data, adxl345_thread_stack,
+                    K_THREAD_STACK_SIZEOF(adxl345_thread_stack),
+                    (k_thread_entry_t) adxl345_thread,
+                    NULL, NULL, NULL,
+                    PRIORITY, 0, K_NO_WAIT);
 
     return 0;
 }
+
+#define STACK_SIZE 1024
+static K_THREAD_STACK_DEFINE(adxl345_thread_stack, STACK_SIZE);
+static struct k_thread adxl345_thread_data;
 
 SYS_INIT(adxl345_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
