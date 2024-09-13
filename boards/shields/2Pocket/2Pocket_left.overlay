@@ -1,5 +1,9 @@
 #include "2Pocket.dtsi"
 
+&default_transform {
+    col-offset = <1>;
+};
+
 &kscan0 {
         col-gpios
             = <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
