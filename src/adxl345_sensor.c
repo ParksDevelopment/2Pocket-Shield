@@ -6,8 +6,13 @@
 #include <zephyr/init.h>
 
 #define MY_SERIAL DT_NODELABEL(adxl345)
+#define STACK_SIZE 1024
+#define THREAD_PRIORITY 5
+#define READ_INTERVAL K_SECONDS(1)  // Adjust the interval as needed
 
 LOG_MODULE_REGISTER(adxl345);
+
+static const struct device *sensor;
 
 static void adxl345_read_data(const struct device *sensor) {
     struct sensor_value accel_x, accel_y, accel_z;
@@ -21,7 +26,7 @@ static void adxl345_read_data(const struct device *sensor) {
 
     ret = sensor_channel_get(sensor, SENSOR_CHAN_ACCEL_X, &accel_x);
     if (ret) {
-        LOG_ERR("Failed to get X-axis dataa: %d", ret);
+        LOG_ERR("Failed to get X-axis data: %d", ret);
         return;
     }
 
@@ -43,8 +48,15 @@ static void adxl345_read_data(const struct device *sensor) {
             accel_z.val1, accel_z.val2);
 }
 
+static void adxl345_thread(void) {
+    while (1) {
+        adxl345_read_data(sensor);
+        k_sleep(READ_INTERVAL);
+    }
+}
+
 static int adxl345_init(const struct device *dev) {
-    const struct device *sensor = DEVICE_DT_GET(MY_SERIAL);
+    sensor = DEVICE_DT_GET(MY_SERIAL);
 
     if (!sensor) {
         LOG_ERR("No device found for ADXL345");
@@ -58,12 +70,15 @@ static int adxl345_init(const struct device *dev) {
 
     LOG_INF("ADXL345 initialized");
 
-    // Call the read function right after initialization to get a single reading
-    int counter = 100;
-    while (counter > 0){
-        adxl345_read_data(sensor);
-        counter -= 1;
-    }
+    // Create a thread that will periodically call the read function
+    static struct k_thread adxl345_thread_data;
+    static K_THREAD_STACK_DEFINE(adxl345_thread_stack, STACK_SIZE);
+
+    k_thread_create(&adxl345_thread_data, adxl345_thread_stack,
+                    K_THREAD_STACK_SIZEOF(adxl345_thread_stack),
+                    (k_thread_entry_t) adxl345_thread,
+                    NULL, NULL, NULL,
+                    THREAD_PRIORITY, 0, K_NO_WAIT);
 
     return 0;
 }
