@@ -59,7 +59,11 @@ static int adxl345_init(const struct device *dev) {
     LOG_INF("ADXL345 initialized");
 
     // Call the read function right after initialization to get a single reading
-    adxl345_read_data(sensor);
+    int counter = 100;
+    while (counter > 0){
+        adxl345_read_data(sensor);
+        counter -= 1;
+    }
 
     return 0;
 }
