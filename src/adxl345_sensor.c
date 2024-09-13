@@ -50,7 +50,11 @@ static void adxl345_read_data(const struct device *sensor) {
 
 static void adxl345_thread(void) {
     while (1) {
-        adxl345_read_data(sensor);
+        int i;
+
+        for (i = 0; i < 20; i++) {
+            adxl345_read_data(sensor);
+        }
         k_sleep(READ_INTERVAL);
     }
 }
