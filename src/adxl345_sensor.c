@@ -15,7 +15,7 @@ LOG_MODULE_REGISTER(adxl345);
 static const struct device *sensor;
 
 static void adxl345_read_data(const struct device *sensor) {
-    
+    struct sensor_value accel_x, accel_y, accel_z;
     int attempts = 3;
     int ret;
     while (attempts > 0)
@@ -26,6 +26,9 @@ static void adxl345_read_data(const struct device *sensor) {
         }
         else
         {
+            sensor_channel_get(sensor, SENSOR_CHAN_ACCEL_X, &accel_x);
+            sensor_channel_get(sensor, SENSOR_CHAN_ACCEL_Y, &accel_y);
+            sensor_channel_get(sensor, SENSOR_CHAN_ACCEL_Z, &accel_z);
             LOG_INF("ADXL345 Acceleration: X: %d.%06d, Y: %d.%06d, Z: %d.%06d",
             accel_x.val1, accel_x.val2,
             accel_y.val1, accel_y.val2,
