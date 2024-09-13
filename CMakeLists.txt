@@ -1,1 +1,1 @@
-target_sources(app PRIVATE src/adxl345_sensor.c)
+#target_sources(app PRIVATE src/adxl345_sensor.c)
