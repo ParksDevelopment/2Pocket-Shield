@@ -14,10 +14,10 @@
 // |  SHIFT  |    Z    |    X    |    C    |    V    |    B    | CTRL+A  | CTRL+C  |  |  CTRL+V |  CTRL+X |    N    |    M    |    ,    |    .    |    /    |  R CTRL |
 //                               |   GUI   |   DEL   | RETURN  |  SPACE  | ESCAPE  |  |  RETURN |  SPACE  |   TAB   |   BSPC  |  R ALT  |
             bindings = <
-    &kp Q    &kp W    &kp F        &kp P        &kp B      &kp J         &kp L            &kp U             &kp Y        &kp SINGLE_QUOTE
-    &kp A    &kp R    &kp S        &kp T        &kp G      &kp M         &kp N            &kp E             &kp I        &kp O
-    &kp Z    &kp X    &kp C        &kp D        &kp V      &kp K         &kp H            &kp COMMA         &kp PERIOD   &kp SLASH
-    &kp A    &bt BT_CLR    &kp ESCAPE   &kp SPACE    &kp TAB    &kp RETURN    &kp BACKSPACE    &kp DELETE        &kp A &kp A
+    &kp Q    &kp W         &kp F        &kp P        &kp B      &kp J         &kp L            &kp U             &kp Y        &kp SINGLE_QUOTE
+    &kp A    &kp R         &kp S        &kp T        &kp G      &kp M         &kp N            &kp E             &kp I        &kp O
+    &kp Z    &kp X         &kp C        &kp D        &kp V      &kp K         &kp H            &kp COMMA         &kp PERIOD   &kp SLASH
+    &kp A    &bt BT_CLR    &kp ESCAPE   &kp SPACE    &kp TAB    &kp RETURN    &kp BACKSPACE    &kp DELETE        &kp A        &kp A
             >;
         };
     };
