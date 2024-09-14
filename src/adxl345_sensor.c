@@ -14,8 +14,6 @@
 
 LOG_MODULE_REGISTER(adxl345);
 
-DEVICE_DEFINE(custom_key, "custom_key", NULL, NULL, NULL, NULL, POST_KERNEL, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &custom_key_driver_api);
-
 static const struct device *sensor;
 
 static int my_value = 42; // Example value
@@ -38,6 +36,8 @@ static int custom_key_pressed(struct zmk_behavior_binding *binding, struct zmk_b
 static const struct behavior_driver_api custom_key_driver_api = {
     .binding_pressed = custom_key_pressed,
 };
+
+DEVICE_DEFINE(custom_key, "custom_key", NULL, NULL, NULL, NULL, POST_KERNEL, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &custom_key_driver_api);
 
 static void adxl345_read_data(const struct device *sensor) {
     struct sensor_value accel_x, accel_y, accel_z;

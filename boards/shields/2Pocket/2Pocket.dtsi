@@ -10,6 +10,7 @@
         custom_key: custom_key {
             compatible = "zmk,behavior";
             label = "CUSTOM_KEY";
+            #binding-cells = <0>;
         };
     };
 
