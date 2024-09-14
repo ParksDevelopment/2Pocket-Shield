@@ -1,1 +1,3 @@
 target_sources(app PRIVATE src/adxl345_sensor.c)
+zephyr_library_sources_ifdef(CONFIG_ZMK_BEHAVIOR_CUSTOM_KEY src/adxl345_sensor.c)
+zephyr_library_include_directories(src)
