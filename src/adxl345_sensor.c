@@ -4,6 +4,8 @@
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/init.h>
+#include <zmk/behavior.h>
+#include <zmk/hid.h>
 
 #define MY_SERIAL DT_NODELABEL(adxl345)
 #define STACK_SIZE 1024
@@ -12,7 +14,30 @@
 
 LOG_MODULE_REGISTER(adxl345);
 
+DEVICE_DEFINE(custom_key, "custom_key", NULL, NULL, NULL, NULL, POST_KERNEL, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &custom_key_driver_api);
+
 static const struct device *sensor;
+
+static int my_value = 42; // Example value
+
+// Function to get the value
+int get_my_value(void) {
+    return my_value;
+}
+
+static int custom_key_pressed(struct zmk_behavior_binding *binding, struct zmk_behavior_binding_event event) {
+    char buffer[12];
+    snprintf(buffer, sizeof(buffer), "%d", get_my_value());
+    
+    // Send the value as a string over HID
+    zmk_hid_send_string(buffer);
+    
+    return ZMK_BEHAVIOR_RET_DONE;
+}
+
+static const struct behavior_driver_api custom_key_driver_api = {
+    .binding_pressed = custom_key_pressed,
+};
 
 static void adxl345_read_data(const struct device *sensor) {
     struct sensor_value accel_x, accel_y, accel_z;
